@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b83ux2fruopu7"]
+
+[ext_resource type="PackedScene" uid="uid://b4bed1ckyuhuh" path="res://scenes/lava_particles.tscn" id="1_oygc4"]
+
+[sub_resource type="Environment" id="Environment_vy5hn"]
+background_mode = 3
+glow_enabled = true
+glow_blend_mode = 1
+
+[node name="Glowing Lava Particles" type="Node2D"]
+modulate = Color(2, 1, 1, 1)
+
+[node name="Lava Particles" parent="." instance=ExtResource("1_oygc4")]
+scale_amount_min = 3.0
+scale_amount_max = 4.0
+color = Color(0.976471, 0.313726, 0.0431373, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vy5hn")

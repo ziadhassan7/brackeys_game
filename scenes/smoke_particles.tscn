@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkrixp8qjieql"]
+
+[sub_resource type="Curve" id="Curve_kq65h"]
+_data = [Vector2(0.185484, 0.912088), 0.0, 0.0, 0, 0, Vector2(0.556452, 0.989011), -0.136264, -0.136264, 0, 0, Vector2(0.758064, 0.626374), -0.641241, -0.641241, 0, 0, Vector2(0.991935, 0.318681), -0.428978, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_slv3i"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Smoke Particles" type="CPUParticles2D"]
+amount = 80
+emission_shape = 3
+emission_rect_extents = Vector2(20, 1)
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 25.0
+initial_velocity_max = 25.0
+damping_max = 20.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_kq65h")
+color = Color(1, 1, 1, 0.117647)
+color_ramp = SubResource("Gradient_slv3i")
