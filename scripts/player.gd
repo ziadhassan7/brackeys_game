@@ -20,12 +20,14 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("move_left", "move_right")
 	
+	# Flip Character
 	if direction > 0:
 		animated_sprite_2d.flip_h = false
 		
 	if direction < 0:
 		animated_sprite_2d.flip_h = true
 	
+	# Move Character
 	if direction:
 		velocity.x = direction * SPEED
 	else:
