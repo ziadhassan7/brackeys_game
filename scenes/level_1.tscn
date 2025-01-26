@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://riq0jjnv2k0"]
+[gd_scene load_steps=17 format=3 uid="uid://riq0jjnv2k0"]
 
 [ext_resource type="PackedScene" uid="uid://bardpv0yt81pu" path="res://scenes/player.tscn" id="1_xqyp1"]
 [ext_resource type="PackedScene" uid="uid://dq0fqphllti2b" path="res://scenes/coin.tscn" id="2_hu4yn"]
@@ -220,6 +220,12 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vg5ap"]
 size = Vector2(47, 23)
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_4syrd"]
+specular_color = Color(0.819608, 0.168627, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_clf6q"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
 [node name="Level 1" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_xqyp1")]
@@ -309,5 +315,19 @@ position = Vector2(516, 47)
 position = Vector2(6.5, 6.5)
 shape = SubResource("RectangleShape2D_vg5ap")
 
-[node name="Lava Particles" parent="." instance=ExtResource("7_67cug")]
+[node name="Lava Particles" type="CPUParticles2D" parent="." instance=ExtResource("7_67cug")]
 position = Vector2(520, 41)
+lifetime_randomness = 1.0
+fixed_fps = 30
+draw_order = 1
+texture = SubResource("CanvasTexture_4syrd")
+emission_shape = 3
+emission_rect_extents = Vector2(20, 0)
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+damping_min = 20.0
+damping_max = 20.0
+color = Color(1, 0.279966, 0.145686, 1)
+color_ramp = SubResource("Gradient_clf6q")
