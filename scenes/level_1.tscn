@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bkrixp8qjieql" path="res://scenes/smoke_particles.tscn" id="8_13gss"]
 [ext_resource type="PackedScene" uid="uid://b83ux2fruopu7" path="res://scenes/glowing_lava_particles.tscn" id="9_venps"]
 [ext_resource type="PackedScene" uid="uid://p26rw51fcm12" path="res://scenes/night.tscn" id="10_wx508"]
-[ext_resource type="AudioStream" uid="uid://yj22k5x5x644" path="res://assets/sounds/fire.mp3" id="13_d0c7f"]
+[ext_resource type="AudioStream" uid="uid://cb1o2byxvbl8x" path="res://assets/sounds/fire.mp3" id="13_s4lcv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5gb30"]
 texture = ExtResource("2_rl4u3")
@@ -339,6 +339,7 @@ color = Color(0.756863, 0.376471, 0.827451, 1)
 
 [node name="Fire Sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(521, 47)
-stream = ExtResource("13_d0c7f")
+stream = ExtResource("13_s4lcv")
 autoplay = true
 max_distance = 200.0
+bus = &"SFX"
