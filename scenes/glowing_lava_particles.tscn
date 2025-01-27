@@ -11,6 +11,7 @@ glow_blend_mode = 1
 modulate = Color(2, 1, 1, 1)
 
 [node name="Lava Particles" parent="." instance=ExtResource("1_oygc4")]
+material = null
 scale_amount_min = 3.0
 scale_amount_max = 4.0
 color = Color(0.976471, 0.313726, 0.0431373, 1)

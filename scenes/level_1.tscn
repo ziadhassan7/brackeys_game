@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://riq0jjnv2k0"]
+[gd_scene load_steps=18 format=3 uid="uid://riq0jjnv2k0"]
 
 [ext_resource type="PackedScene" uid="uid://bardpv0yt81pu" path="res://scenes/player.tscn" id="1_xqyp1"]
 [ext_resource type="PackedScene" uid="uid://dq0fqphllti2b" path="res://scenes/coin.tscn" id="2_hu4yn"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b4bed1ckyuhuh" path="res://scenes/lava_particles.tscn" id="7_vepmq"]
 [ext_resource type="PackedScene" uid="uid://bkrixp8qjieql" path="res://scenes/smoke_particles.tscn" id="8_13gss"]
 [ext_resource type="PackedScene" uid="uid://b83ux2fruopu7" path="res://scenes/glowing_lava_particles.tscn" id="9_venps"]
+[ext_resource type="PackedScene" uid="uid://p26rw51fcm12" path="res://scenes/night.tscn" id="10_wx508"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5gb30"]
 texture = ExtResource("2_rl4u3")
@@ -293,10 +294,10 @@ autoplay = "moving_platform"
 [node name="Platform2" parent="Platforms" instance=ExtResource("3_d1087")]
 position = Vector2(284, -75)
 
-[node name="Killzone" parent="." instance=ExtResource("5_15yt5")]
+[node name="Drop-off Killzone" parent="." instance=ExtResource("5_15yt5")]
 position = Vector2(102, 56)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Drop-off Killzone"]
 shape = SubResource("WorldBoundaryShape2D_mlcwq")
 
 [node name="Enemies" type="Node" parent="."]
@@ -307,7 +308,7 @@ position = Vector2(622, 20)
 [node name="Lava" type="Node" parent="."]
 
 [node name="Lava Killzone" parent="Lava" instance=ExtResource("5_15yt5")]
-position = Vector2(516, 45)
+position = Vector2(516, 40)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Lava/Lava Killzone"]
 position = Vector2(6.5, 6.5)
@@ -322,3 +323,8 @@ position = Vector2(522, 41)
 
 [node name="Glowing Lava Particles" parent="Lava" instance=ExtResource("9_venps")]
 position = Vector2(522, 52)
+
+[node name="Night" parent="." instance=ExtResource("10_wx508")]
+visible = false
+position = Vector2(19, 16)
+color = Color(0.756863, 0.376471, 0.827451, 1)

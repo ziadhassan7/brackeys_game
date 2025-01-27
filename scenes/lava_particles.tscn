@@ -1,13 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4bed1ckyuhuh"]
+[gd_scene load_steps=4 format=3 uid="uid://b4bed1ckyuhuh"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mwqsp"]
+blend_mode = 1
 
 [sub_resource type="Curve" id="Curve_hn4p6"]
-_data = [Vector2(0, 0.868132), 0.0, 0.0, 0, 0, Vector2(0.503497, 0.978022), 0.0, 0.0, 0, 0, Vector2(0.79021, 0.912088), 0.0, 0.0, 0, 0, Vector2(1, 0.208791), 0.375776, 0.0, 0, 0]
-point_count = 4
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.393491, 0.862469), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_haiyf"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Lava Particles" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_mwqsp")
 amount = 80
 emission_shape = 3
 emission_rect_extents = Vector2(20, 1)
