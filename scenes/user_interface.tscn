@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://jlfjbgrck1m7"]
+
+[ext_resource type="Script" path="res://scenes/user_interface.gd" id="1_i4pv2"]
+[ext_resource type="PackedScene" uid="uid://bheq7bv3477g6" path="res://scenes/text_bold.tscn" id="1_vrwhb"]
+
+[node name="User Interface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i4pv2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Score Label" parent="CanvasLayer" instance=ExtResource("1_vrwhb")]
+offset_left = 29.0
+offset_top = 38.0
+offset_right = 319.0
+offset_bottom = 78.0
+theme_override_font_sizes/font_size = 40
+text = "Score: 0"

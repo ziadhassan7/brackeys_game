@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bheq7bv3477g6"]
+
+[ext_resource type="FontFile" uid="uid://dx08ggoe4jc2q" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="1_raf5i"]
+
+[node name="Bold Text" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("1_raf5i")
+theme_override_font_sizes/font_size = 16
