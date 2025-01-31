@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cvt5ddabdsa3t"]
+[gd_scene load_steps=19 format=3 uid="uid://cvt5ddabdsa3t"]
 
 [ext_resource type="Texture2D" uid="uid://dr1tjgacribkv" path="res://assets/sprites/slime_green.png" id="1_3q2pl"]
 [ext_resource type="Script" path="res://scripts/slime.gd" id="1_1374c"]
@@ -7,22 +7,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vnh34"]
 size = Vector2(14, 12)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dtwqr"]
-atlas = ExtResource("1_3q2pl")
-region = Rect2(0, 48, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8tlhs"]
-atlas = ExtResource("1_3q2pl")
-region = Rect2(24, 48, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_33gqp"]
-atlas = ExtResource("1_3q2pl")
-region = Rect2(48, 48, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s6avw"]
-atlas = ExtResource("1_3q2pl")
-region = Rect2(72, 48, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3l8ek"]
 atlas = ExtResource("1_3q2pl")
@@ -39,6 +23,18 @@ region = Rect2(24, 0, 24, 24)
 [sub_resource type="AtlasTexture" id="AtlasTexture_mq84s"]
 atlas = ExtResource("1_3q2pl")
 region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivcx2"]
+atlas = ExtResource("1_3q2pl")
+region = Rect2(48, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbxp2"]
+atlas = ExtResource("1_3q2pl")
+region = Rect2(24, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w1q2r"]
+atlas = ExtResource("1_3q2pl")
+region = Rect2(0, 48, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2ghq5"]
 atlas = ExtResource("1_3q2pl")
@@ -60,23 +56,6 @@ region = Rect2(72, 24, 24, 24)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dtwqr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8tlhs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_33gqp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s6avw")
-}],
-"loop": false,
-"name": &"death",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_3l8ek")
 }, {
 "duration": 1.0,
@@ -87,6 +66,20 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mq84s")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivcx2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbxp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w1q2r")
 }],
 "loop": false,
 "name": &"hurt",
@@ -125,8 +118,6 @@ shape = SubResource("RectangleShape2D_vnh34")
 sprite_frames = SubResource("SpriteFrames_jiiya")
 animation = &"hurt"
 autoplay = "idle"
-frame = 3
-frame_progress = 1.0
 
 [node name="Killzone" parent="." instance=ExtResource("2_ffqek")]
 

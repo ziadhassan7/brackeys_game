@@ -1,11 +1,13 @@
 extends Area2D	
 
-var is_attacking = false
-
 @onready var slash_animation: AnimatedSprite2D = $"Slash Animation"
 @onready var hit_animation: AnimatedSprite2D = $"Hit Animation"
 @onready var attack_area: Area2D = $"."
 @onready var collision: CollisionShape2D = $CollisionShape2D
+
+var is_attacking = false
+var damage = 50
+
 
 # Disable this node at the start
 func _ready():
@@ -38,9 +40,11 @@ func start_attack(attack_type: String) -> void:
 		
 
 func play_small_attack():
+	damage = 50
 	slash_animation.play("small_slash")  # Play attack animation
 	hit_animation.play("hit_1") 
 	
 	
 func play_dash_attack():
+	damage = 100
 	pass
