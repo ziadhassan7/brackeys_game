@@ -24,10 +24,13 @@ func _process(delta: float) -> void:
 	if ray_cast_right.is_colliding():
 		direction = -1
 		animated_sprite_2d.flip_h = true
+		killzone.scale.x = -1
 		
 	if ray_cast_left.is_colliding():
 		direction = 1
 		animated_sprite_2d.flip_h = false
+		killzone.scale.x = 1
+		
 	
 	position.x += direction*(speed * delta) #we multiply by delta because the time between frames varies and we do not want the speed to be fluctuating, so we use delta to stablize the speed by overcompensating  the difference between each frame.
 	
