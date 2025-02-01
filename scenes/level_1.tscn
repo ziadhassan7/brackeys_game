@@ -1,8 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://riq0jjnv2k0"]
+[gd_scene load_steps=18 format=3 uid="uid://riq0jjnv2k0"]
 
-[ext_resource type="PackedScene" uid="uid://dacc3fy0bgxjn" path="res://scenes/game_manager.tscn" id="1_1uauu"]
 [ext_resource type="PackedScene" uid="uid://bardpv0yt81pu" path="res://scenes/player.tscn" id="1_xqyp1"]
-[ext_resource type="PackedScene" uid="uid://jlfjbgrck1m7" path="res://scenes/user_interface.tscn" id="2_eqfbt"]
 [ext_resource type="PackedScene" uid="uid://dq0fqphllti2b" path="res://scenes/coin.tscn" id="2_hu4yn"]
 [ext_resource type="Texture2D" uid="uid://crs66od0fv8gi" path="res://assets/sprites/world_tileset.png" id="2_rl4u3"]
 [ext_resource type="PackedScene" uid="uid://t8kxxatlxdvv" path="res://scenes/platform.tscn" id="3_d1087"]
@@ -226,11 +224,6 @@ _data = {
 size = Vector2(47, 23)
 
 [node name="Level 1" type="Node2D"]
-
-[node name="GameManager" parent="." instance=ExtResource("1_1uauu")]
-unique_name_in_owner = true
-
-[node name="User Interface" parent="." instance=ExtResource("2_eqfbt")]
 
 [node name="Player" parent="." instance=ExtResource("1_xqyp1")]
 z_index = 5

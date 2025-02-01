@@ -72,3 +72,19 @@ func _attack(direction) -> void:
 
 		else: # Not Flipped -> walking right
 			attack_area_right.start_attack("normal")
+			
+# Attack
+func death() -> void:
+	# Slow motion effect & remove ground from the player
+	Engine.time_scale = 0.5
+	get_node("CollisionShape2D").queue_free()
+	
+	# Wait for 0.6 seconds before reloading the scene
+	await get_tree().create_timer(0.6).timeout 
+	
+	# Set time back to normal & reload the scene
+	Engine.time_scale = 1.0 
+	get_tree().reload_current_scene()
+	
+	# Reset score & Play death sound
+	GameManager.reset_score()
