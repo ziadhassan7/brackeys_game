@@ -1,5 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://riq0jjnv2k0"]
+[gd_scene load_steps=19 format=3 uid="uid://riq0jjnv2k0"]
 
+[ext_resource type="Script" path="res://scripts/level_1.gd" id="1_c2w6d"]
 [ext_resource type="PackedScene" uid="uid://bardpv0yt81pu" path="res://scenes/player.tscn" id="1_xqyp1"]
 [ext_resource type="PackedScene" uid="uid://dq0fqphllti2b" path="res://scenes/coin.tscn" id="2_hu4yn"]
 [ext_resource type="Texture2D" uid="uid://crs66od0fv8gi" path="res://assets/sprites/world_tileset.png" id="2_rl4u3"]
@@ -224,6 +225,7 @@ _data = {
 size = Vector2(47, 23)
 
 [node name="Level 1" type="Node2D"]
+script = ExtResource("1_c2w6d")
 
 [node name="Player" parent="." instance=ExtResource("1_xqyp1")]
 z_index = 5

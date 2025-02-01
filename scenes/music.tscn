@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bga1pwj3av6af"]
-
-[ext_resource type="AudioStream" uid="uid://bt25nwwqqeq4f" path="res://assets/music/retro-game-arcade-short-236130.mp3" id="1_xnqhf"]
-
-[node name="Music" type="AudioStreamPlayer2D"]
-stream = ExtResource("1_xnqhf")
-autoplay = true
-bus = &"Music"
