@@ -67,6 +67,7 @@ scale = Vector2(0.28, 0.28)
 [node name="AttackArea_Left" parent="." instance=ExtResource("3_qns1o")]
 visible = false
 position = Vector2(-9, -11)
+rotation = 0.66615
 scale = Vector2(-0.28, 0.28)
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://riq0jjnv2k0"]
+[gd_scene load_steps=20 format=3 uid="uid://riq0jjnv2k0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_c2w6d"]
 [ext_resource type="PackedScene" uid="uid://bardpv0yt81pu" path="res://scenes/player.tscn" id="1_xqyp1"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bkrixp8qjieql" path="res://scenes/smoke_particles.tscn" id="8_13gss"]
 [ext_resource type="PackedScene" uid="uid://b83ux2fruopu7" path="res://scenes/glowing_lava_particles.tscn" id="9_venps"]
 [ext_resource type="PackedScene" uid="uid://p26rw51fcm12" path="res://scenes/night.tscn" id="10_wx508"]
+[ext_resource type="PackedScene" uid="uid://dt7f12x3mvdtx" path="res://scenes/portal.tscn" id="12_eufkk"]
 [ext_resource type="AudioStream" uid="uid://cb1o2byxvbl8x" path="res://assets/sounds/fire.mp3" id="13_s4lcv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5gb30"]
@@ -252,9 +253,6 @@ position = Vector2(273, -41)
 [node name="coin2" parent="Coins" instance=ExtResource("2_hu4yn")]
 position = Vector2(105, -25)
 
-[node name="coin3" parent="Coins" instance=ExtResource("2_hu4yn")]
-position = Vector2(890, -24)
-
 [node name="coin4" parent="Coins" instance=ExtResource("2_hu4yn")]
 position = Vector2(938, -58)
 
@@ -333,3 +331,6 @@ bus = &"SFX"
 visible = false
 position = Vector2(19, 16)
 color = Color(0.756863, 0.376471, 0.827451, 1)
+
+[node name="Portal" parent="." instance=ExtResource("12_eufkk")]
+position = Vector2(888, -38)

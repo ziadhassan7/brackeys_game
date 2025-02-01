@@ -52,7 +52,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"long_slash",
-"speed": 8.0
+"speed": 14.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -69,7 +69,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"small_slash",
-"speed": 12.0
+"speed": 14.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_04a1d"]
@@ -124,7 +124,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hit_1",
-"speed": 12.0
+"speed": 14.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -151,18 +151,17 @@ animations = [{
 size = Vector2(42, 54)
 
 [node name="Attack Area" type="Area2D" groups=["player_hitbox"]]
+rotation = -0.666656
 collision_layer = 2
 monitoring = false
 script = ExtResource("1_pp0dx")
 
 [node name="Slash Animation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ond6y")
-animation = &"small_slash"
-frame = 3
-frame_progress = 1.0
+animation = &"long_slash"
 
 [node name="Hit Animation" type="AnimatedSprite2D" parent="."]
-position = Vector2(21, 2)
+position = Vector2(18.0756, 14.2223)
 scale = Vector2(0.76, 0.76)
 sprite_frames = SubResource("SpriteFrames_pqexg")
 animation = &"hit_1"

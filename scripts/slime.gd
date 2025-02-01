@@ -5,12 +5,14 @@ const MAX_HEALTH = 100
 var speed = 60
 var direction = 1 # 1: right , -1: left
 var health = MAX_HEALTH
+var is_dead = false
 
 @onready var ray_cast_right: RayCast2D = $RayCastRight
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var killzone: Area2D = $Killzone
 @onready var slime: Area2D = $"."
+@onready var slime_body_hit_area: CollisionShape2D = $SlimeBody
 @onready var death_sound: AudioStreamPlayer2D = $DeathSound
 
 
@@ -20,6 +22,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if is_dead:
+		return
 	
 	if ray_cast_right.is_colliding():
 		direction = -1
@@ -43,6 +47,8 @@ func _on_hit(hitbox: Area2D):
 
 
 func take_damage(damage: int):
+	if is_dead || !killzone:
+		return
 
 	health -= damage
 	
@@ -66,9 +72,15 @@ func take_damage(damage: int):
 
 
 func die():
+	if is_dead:
+		return
+	
 	speed = 5  # Stop movement
 	animated_sprite_2d.play("death")  # Play death animation
 	killzone.queue_free() # turn off enemy killzone
 	
 	await animated_sprite_2d.animation_finished
 	queue_free()  # Remove enemy after animation 
+	
+	GameManager.open_portal_to_boss_arena()
+	is_dead = true

@@ -46,5 +46,6 @@ func play_small_attack():
 	
 	
 func play_dash_attack():
-	damage = 100
-	pass
+	damage = 50
+	slash_animation.play("long_slash")  # Play attack animation
+	hit_animation.play("hit_2") 
