@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="Brackeys Game"
-run/main_scene="res://scenes/level_1.tscn"
+run/main_scene="res://scenes/Levels/Level 1/level_1.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameManager="*res://scenes/game_manager.tscn"
-Music="*res://scenes/music.tscn"
+MusicManager="*res://scenes/music_manager.tscn"
 
 [display]
 
