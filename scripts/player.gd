@@ -9,13 +9,23 @@ const JUMP_VELOCITY = -300.0
 @onready var attack_area_left: Area2D = $AttackArea_Left
 @onready var death_sound: AudioStreamPlayer2D = $DeathSound
 
+@export var max_jump_velocity: float = -250.0  # Strongest jump
+@export var min_jump_velocity: float = -50.0  # Weakest jump
+@export var max_jumps: int = 2  # Max jumps allowed
+
+var jumps_left_counter: int = max_jumps  # Remaining jumps
+var is_jumping: bool = false  # Check if currently jumping
+#@export allows you to edit variables in the inspector
+
+var attack_type = "dash" # There is also "normald"
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	_add_gravity(delta)
 		
 	# Handle Jump
-	_handle_jump()
+	_handle_jump(delta)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -42,10 +52,31 @@ func _add_gravity(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 
-# Handle jump
-func _handle_jump() -> void:
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+# is_action_just_pressed : Triggers only once
+# is_action_pressed : Keeps triggering continuously while the button is held
+
+func _handle_jump(delta: float) -> void:
+	# Jump Start: When jump is first pressed
+	if Input.is_action_just_pressed("jump") and jumps_left_counter > 0:
+		velocity.y = max_jump_velocity # strong (INITIAL) value as a boost.
+		jumps_left_counter -= 1
+		is_jumping = true
+	
+	# Holding Jump: Increase height based on hold time
+	if Input.is_action_pressed("jump") and is_jumping:
+		jumps_left_counter -= 1
+		if velocity.y < max_jump_velocity:  # as long as we haven't reached the max jump
+			velocity.y -= 10 # increase jump by small force GRADUALLY
+
+	# Early Release: Reduce jump height if released early
+	if Input.is_action_just_released("jump") and velocity.y < min_jump_velocity:
+		velocity.y = min_jump_velocity # Force set to the minimum height
+		is_jumping = false  # Stop increasing height
+
+	# Reset Jumps When Landing
+	if is_on_floor():
+		jumps_left_counter = max_jumps
+		is_jumping = false
 
 
 # Move Character
@@ -66,13 +97,14 @@ func _flip_character(direction) -> void:
 
 
 # Attack
-func _attack(direction) -> void:
+func _attack(direction) -> void:	
+	
 	if Input.is_action_just_pressed("attack"):
 		if animated_sprite_2d.flip_h: # Flipped -> walking left
-			attack_area_left.start_attack("normal")
+			attack_area_left.start_attack(attack_type)
 
 		else: # Not Flipped -> walking right
-			attack_area_right.start_attack("normal")
+			attack_area_right.start_attack(attack_type)
 			
 # Death
 func death() -> void:
