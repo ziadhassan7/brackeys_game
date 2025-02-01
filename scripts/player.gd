@@ -70,7 +70,7 @@ func _handle_jump(delta: float) -> void:
 
 	# Early Release: Reduce jump height if released early
 	if Input.is_action_just_released("jump") and velocity.y < min_jump_velocity:
-		velocity.y = min_jump_velocity # Force set to the minimum height
+		velocity.y = min_jump_velocity # Force set to the minimum height (acts as brakes)
 		is_jumping = false  # Stop increasing height
 
 	# Reset Jumps When Landing
