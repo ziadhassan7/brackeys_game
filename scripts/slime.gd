@@ -47,11 +47,11 @@ func _on_hit(hitbox: Area2D):
 
 
 func take_damage(damage: int):
-	if is_dead || !killzone:
+	if is_dead:
 		return
 
 	health -= damage
-	
+
 	# health reached 0 => DEAD
 	if health <= 0:
 		die()
@@ -61,20 +61,22 @@ func take_damage(damage: int):
 		# Disable the hitbox temporarily
 		killzone.set_deferred("monitoring", false)
 		killzone.set_deferred("visible", false)  
-		
 		# Reset to idle after the hurt animation finishes
 		await animated_sprite_2d.animation_finished  
 		animated_sprite_2d.play("idle") 
 		# Re-enable the hitbox
 		killzone.set_deferred("monitoring", true)
 		killzone.set_deferred("visible", true)
+			
 
 
 
 func die():
 	if is_dead:
 		return
-	
+
+	is_dead = true
+
 	speed = 5  # Stop movement
 	animated_sprite_2d.play("death")  # Play death animation
 	killzone.queue_free() # turn off enemy killzone
@@ -83,4 +85,3 @@ func die():
 	queue_free()  # Remove enemy after animation 
 	
 	GameManager.open_portal_to_boss_arena()
-	is_dead = true
