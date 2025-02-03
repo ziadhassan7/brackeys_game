@@ -43,6 +43,7 @@ animations = [{
 size = Vector2(8.5, 12)
 
 [node name="SlimeKing" type="Area2D"]
+scale = Vector2(-5.84, 4.8)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2si1g")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://5dtfhb31l3my"]
+[gd_scene load_steps=9 format=3 uid="uid://5dtfhb31l3my"]
 
 [ext_resource type="PackedScene" uid="uid://bardpv0yt81pu" path="res://scenes/player.tscn" id="1_g8fia"]
 [ext_resource type="Texture2D" uid="uid://crs66od0fv8gi" path="res://assets/sprites/world_tileset.png" id="2_mhq1c"]
 [ext_resource type="PackedScene" uid="uid://ce6flqj0ddmjy" path="res://scenes/killzone.tscn" id="3_cvdtp"]
 [ext_resource type="PackedScene" uid="uid://p26rw51fcm12" path="res://scenes/night.tscn" id="4_kv26r"]
+[ext_resource type="PackedScene" uid="uid://mws7ghk0inrn" path="res://scenes/slime_king.tscn" id="5_qhm5r"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ahcu4"]
 texture = ExtResource("2_mhq1c")
@@ -176,3 +177,6 @@ shape = SubResource("WorldBoundaryShape2D_gje6b")
 [node name="Effect" parent="." instance=ExtResource("4_kv26r")]
 position = Vector2(19, 16)
 color = Color(0.854902, 0.662745, 0.921569, 1)
+
+[node name="SlimeKing" parent="." instance=ExtResource("5_qhm5r")]
+position = Vector2(173, -59)
