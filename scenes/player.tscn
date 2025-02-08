@@ -1,9 +1,33 @@
-[gd_scene load_steps=11 format=3 uid="uid://bardpv0yt81pu"]
+[gd_scene load_steps=17 format=3 uid="uid://bardpv0yt81pu"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_odqre"]
 [ext_resource type="Texture2D" uid="uid://6asyqmamandf" path="res://assets/sprites/knight.png" id="1_tvdi4"]
 [ext_resource type="PackedScene" uid="uid://bt3p7porj834v" path="res://scenes/attack_area.tscn" id="3_qns1o"]
 [ext_resource type="AudioStream" uid="uid://b6pwbl41ldotr" path="res://assets/sounds/game_over.mp3" id="4_u1m8s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mlu3"]
+atlas = ExtResource("1_tvdi4")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4iae"]
+atlas = ExtResource("1_tvdi4")
+region = Rect2(96, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00wbn"]
+atlas = ExtResource("1_tvdi4")
+region = Rect2(128, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bosxr"]
+atlas = ExtResource("1_tvdi4")
+region = Rect2(160, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8up7"]
+atlas = ExtResource("1_tvdi4")
+region = Rect2(192, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nrv0o"]
+atlas = ExtResource("1_tvdi4")
+region = Rect2(224, 160, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8hkk6"]
 atlas = ExtResource("1_tvdi4")
@@ -23,6 +47,29 @@ region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kea0w"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mlu3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m4iae")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_00wbn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bosxr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8up7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nrv0o")
+}],
+"loop": false,
+"name": &"dash",
+"speed": 12.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8hkk6")
@@ -51,24 +98,25 @@ script = ExtResource("1_odqre")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_kea0w")
-animation = &"idle"
+animation = &"dash"
 autoplay = "idle"
-frame_progress = 0.944611
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_f2p7n")
 
 [node name="AttackArea_Right" parent="." instance=ExtResource("3_qns1o")]
-visible = false
 position = Vector2(9, -11)
-scale = Vector2(0.28, 0.28)
+scale = Vector2(0.396971, 0.396971)
 
 [node name="AttackArea_Left" parent="." instance=ExtResource("3_qns1o")]
-visible = false
 position = Vector2(-9, -11)
 rotation = 0.66615
-scale = Vector2(-0.28, 0.28)
+scale = Vector2(-0.407106, 0.407106)
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_u1m8s")
+
+[node name="DashDurationTimer" type="Timer" parent="."]
+
+[node name="DashCooldownTimer" type="Timer" parent="."]

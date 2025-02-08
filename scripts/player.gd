@@ -3,37 +3,47 @@ extends CharacterBody2D
 
 const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
+const ATTACK_TYPE = "dash" # There is also "normal"
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_area_right: Area2D = $AttackArea_Right
 @onready var attack_area_left: Area2D = $AttackArea_Left
 @onready var death_sound: AudioStreamPlayer2D = $DeathSound
 
+# Jump
 @export var max_jump_velocity: float = -250.0  # Strongest jump
 @export var min_jump_velocity: float = -50.0  # Weakest jump
 @export var max_jumps: int = 2  # Max jumps allowed
 
 var jumps_left_counter: int = max_jumps  # Remaining jumps
 var is_jumping: bool = false  # Check if currently jumping
-#@export allows you to edit variables in the inspector
 
-var attack_type = "dash" # There is also "normald"
+
+# Dash
+@export var dash_speed_multiplier := 1.9
+@export var dash_duration_timer := 0.4
+@export var dash_cooldown_timer := 1.0
+var is_dashing := false
+var can_dashing := false
 
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	_add_gravity(delta)
-		
-	# Handle Jump
-	_handle_jump(delta)
-
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("move_left", "move_right")
 
+	# Add the gravity.
+	_add_gravity(delta)
+
+	# Handle Jump
+	_handle_jump(delta)
+
+	# Handle Dash
+	_handle_dash(direction)
+
 	# Flip
 	_flip_character(direction)
-	
+
 	# Move
 	_move_character(direction)
 
@@ -42,7 +52,7 @@ func _physics_process(delta: float) -> void:
 
 	#
 	move_and_slide()
-	
+
 
 	
 ################################################################################
@@ -80,12 +90,34 @@ func _handle_jump(delta: float) -> void:
 		is_jumping = false
 
 
+# Handle Dash
+func _handle_dash(direction) -> void:
+	if Input.is_action_just_pressed("dash") and not is_dashing:
+		is_dashing = true
+		animated_sprite_2d.play("dash")
+		_start_dash()
+
+func _start_dash() -> void:
+	# Set dash velocity once when dash is triggered:
+	if animated_sprite_2d.flip_h:
+		velocity.x = -(SPEED * dash_speed_multiplier)
+	else:
+		velocity.x = (SPEED * dash_speed_multiplier)
+		
+	# Start a timer and then disable dash after dash_duration_timer seconds.
+	await get_tree().create_timer(dash_duration_timer).timeout 
+	is_dashing = false
+	
+
+
+
 # Move Character
 func _move_character(direction) -> void:
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+	if not is_dashing: # make sure we're not dahsing (to not intervene the controls)
+		if direction:
+			velocity.x = direction * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
 
 
 # Flip Character
@@ -102,13 +134,17 @@ func _attack(direction) -> void:
 	
 	if Input.is_action_just_pressed("attack"):
 		if animated_sprite_2d.flip_h: # Flipped -> walking left
-			attack_area_left.start_attack(attack_type)
+			attack_area_left.start_attack(ATTACK_TYPE)
 
 		else: # Not Flipped -> walking right
-			attack_area_right.start_attack(attack_type)
+			attack_area_right.start_attack(ATTACK_TYPE)
 			
 # Death
 func death() -> void:
+	if is_dashing: # desable taking damage if we are dashing
+		return 
+
+
 	# Slow motion effect & remove ground from the player
 	Engine.time_scale = 0.5
 	
