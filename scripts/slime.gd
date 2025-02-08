@@ -13,7 +13,7 @@ var is_dead = false
 @onready var killzone: Area2D = $Killzone
 @onready var slime: Area2D = $"."
 @onready var slime_body_hit_area: CollisionShape2D = $SlimeBody
-@onready var death_sound: AudioStreamPlayer2D = $DeathSound
+@onready var death_sound: AudioStreamPlayer2D = $HurtSound
 
 
 # assign signal to detect if enemy is being hit (by using the built in area_entered)

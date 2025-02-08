@@ -46,7 +46,7 @@ func _physics_process(delta: float) -> void:
 
 	
 ################################################################################
-# Handle jump
+# Gravity
 func _add_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -55,6 +55,7 @@ func _add_gravity(delta: float) -> void:
 # is_action_just_pressed : Triggers only once
 # is_action_pressed : Keeps triggering continuously while the button is held
 
+# Handle Jump
 func _handle_jump(delta: float) -> void:
 	# Jump Start: When jump is first pressed
 	if Input.is_action_just_pressed("jump") and jumps_left_counter > 0:
