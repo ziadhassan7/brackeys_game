@@ -13,7 +13,10 @@ func play_music(track_path: String):
 		return  # Don't restart the same track
 		
 	# fade out previous music
-	if current_track != "": fade_out()
+	# if current_track != "": fade_out()
+	
+	
+	reset_volum()
 
 	# Load track dynamically
 	current_track = track_path

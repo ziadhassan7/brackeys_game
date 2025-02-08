@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://5dtfhb31l3my"]
+[gd_scene load_steps=10 format=3 uid="uid://5dtfhb31l3my"]
 
+[ext_resource type="Script" path="res://scripts/boss_arena.gd" id="1_85k5j"]
 [ext_resource type="PackedScene" uid="uid://bardpv0yt81pu" path="res://scenes/player.tscn" id="1_g8fia"]
 [ext_resource type="Texture2D" uid="uid://crs66od0fv8gi" path="res://assets/sprites/world_tileset.png" id="2_mhq1c"]
 [ext_resource type="PackedScene" uid="uid://ce6flqj0ddmjy" path="res://scenes/killzone.tscn" id="3_cvdtp"]
@@ -150,6 +151,7 @@ sources/0 = SubResource("TileSetAtlasSource_ahcu4")
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gje6b"]
 
 [node name="BossArena" type="Node2D"]
+script = ExtResource("1_85k5j")
 
 [node name="Player" parent="." instance=ExtResource("1_g8fia")]
 z_index = 5
