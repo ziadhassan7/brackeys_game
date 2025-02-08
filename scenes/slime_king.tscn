@@ -107,7 +107,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2rkuq"]
-size = Vector2(9.4863, 12.7083)
+size = Vector2(9.41781, 12.0833)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6jrs"]
 size = Vector2(13.5274, 4.08333)
@@ -134,7 +134,7 @@ autoplay = "idle"
 [node name="Killzone" parent="." instance=ExtResource("2_wfj70")]
 
 [node name="CollisionShape_Head" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(-0.907535, 5.52083)
+position = Vector2(-0.941781, 5.83332)
 shape = SubResource("RectangleShape2D_2rkuq")
 
 [node name="CollisionShape_Leg" type="CollisionShape2D" parent="Killzone"]
