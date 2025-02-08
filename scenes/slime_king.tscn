@@ -1,7 +1,43 @@
-[gd_scene load_steps=9 format=3 uid="uid://mws7ghk0inrn"]
+[gd_scene load_steps=21 format=3 uid="uid://mws7ghk0inrn"]
 
+[ext_resource type="Script" path="res://scripts/slime_king.gd" id="1_7opkb"]
 [ext_resource type="Texture2D" uid="uid://dneoctm714hko" path="res://assets/sprites/slime_purple.png" id="1_v1cul"]
 [ext_resource type="PackedScene" uid="uid://ce6flqj0ddmjy" path="res://scenes/killzone.tscn" id="2_wfj70"]
+[ext_resource type="AudioStream" uid="uid://hmxsg8pqldpi" path="res://assets/sounds/hurt.wav" id="4_oo0na"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onp76"]
+size = Vector2(13.9897, 4.89583)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfvwr"]
+size = Vector2(9.93151, 7.08333)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1s0a"]
+atlas = ExtResource("1_v1cul")
+region = Rect2(48, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yymjd"]
+atlas = ExtResource("1_v1cul")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08vjg"]
+atlas = ExtResource("1_v1cul")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2g1sa"]
+atlas = ExtResource("1_v1cul")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rp4u"]
+atlas = ExtResource("1_v1cul")
+region = Rect2(48, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qacgu"]
+atlas = ExtResource("1_v1cul")
+region = Rect2(24, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kti8n"]
+atlas = ExtResource("1_v1cul")
+region = Rect2(0, 48, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5kblp"]
 atlas = ExtResource("1_v1cul")
@@ -23,6 +59,37 @@ region = Rect2(72, 24, 24, 24)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_m1s0a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yymjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08vjg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2g1sa")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rp4u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qacgu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kti8n")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_5kblp")
 }, {
 "duration": 1.0,
@@ -35,22 +102,54 @@ animations = [{
 "texture": SubResource("AtlasTexture_5h8t8")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2rkuq"]
+size = Vector2(9.4863, 12.7083)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6jrs"]
-size = Vector2(8.5, 12)
+size = Vector2(13.5274, 4.08333)
 
 [node name="SlimeKing" type="Area2D"]
 scale = Vector2(-5.84, 4.8)
+collision_mask = 2
+script = ExtResource("1_7opkb")
+
+[node name="SlimeKingLeg" type="CollisionShape2D" parent="."]
+position = Vector2(-0.0256848, 9.32292)
+shape = SubResource("RectangleShape2D_onp76")
+
+[node name="SlimeKingHead" type="CollisionShape2D" parent="."]
+position = Vector2(-1.0274, 3.54167)
+shape = SubResource("RectangleShape2D_kfvwr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1.19209e-07, 0)
 sprite_frames = SubResource("SpriteFrames_2si1g")
-autoplay = "default"
+animation = &"death"
+autoplay = "idle"
 
 [node name="Killzone" parent="." instance=ExtResource("2_wfj70")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(-0.25, 6)
+[node name="CollisionShape_Head" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(-0.907535, 5.52083)
+shape = SubResource("RectangleShape2D_2rkuq")
+
+[node name="CollisionShape_Leg" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0.0856164, 9.95833)
 shape = SubResource("RectangleShape2D_c6jrs")
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_oo0na")
+bus = &"SFX"
+area_mask = 2
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(7.02055, -0.166667)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(-7.19178, 0.0416665)
