@@ -1,15 +1,21 @@
 extends CharacterBody2D
 
+enum BossState{
+	IDLE, JUMPING, SHOOTING
+}
 
+const SPEED = 60
 const MAX_HEALTH = 500
 const JUMP_FORCE = -300  # Negative because Y-axis is inverted in Godot
 const GRAVITY = 500      # Simulated gravity
 const JUMP_COUNT = 3     # Number of jumps before stopping
 
-var speed = 60
+var current_state = BossState.IDLE
+var current_speed = 60
 var health = MAX_HEALTH
 var is_dead = false
 var jump_remaining = 0  # Track remaining jumps
+var direction = -1
 
 @onready var hit_box: Area2D = $HitBox
 @onready var killzone: Area2D = $Killzone
@@ -23,6 +29,7 @@ var jump_remaining = 0  # Track remaining jumps
 # assign signal to detect if enemy is being hit (by using the built in area_entered)
 func _ready():
 	hit_box.connect("area_entered", Callable(self, "_on_hit"))
+	jump_remaining = JUMP_COUNT
 
 
 
@@ -31,47 +38,81 @@ func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
 	
-	var direction := Input.get_axis("move_left", "move_right")
-	
 	_add_gravity(delta)
-	
-	_flip_when_collide(direction)
-	
 
-	# If touching the ground, reset jumps
+	_flip_when_collide()
+	
+	_initiate_boss_attack_pattern()
+
+	_add_movement()
+
+
+
+
+## State Machine
+func _initiate_boss_attack_pattern():
+	match current_state:
+		BossState.IDLE:
+			await get_tree().create_timer(1.2).timeout # wait
+			current_state = BossState.JUMPING
+		
+		BossState.JUMPING:
+			_start_jumping_attack()
+		
+		BossState.SHOOTING:
+			_start_shooting()
+
+
+func _start_jumping_attack():
 	if is_on_floor():
 		if jump_remaining > 0:
 			jump()
-	
-	
-	velocity.x = direction * speed  # Set velocity instead of modifying position
+		else: # reset 
+			jump_remaining = JUMP_COUNT
+			current_speed = SPEED
+			current_state = BossState.SHOOTING
 
+func _start_shooting():
+	
+	await get_tree().create_timer(1.2).timeout # wait
+	current_state = BossState.IDLE
+
+
+
+## Character Specific Functions
+
+# Function to make the boss jump
+func jump():
+	if jump_remaining > 0:
+		current_speed += 150
+		velocity.y = JUMP_FORCE  # Apply jump force
+		jump_remaining -= 1  # Decrease jump count
+
+
+func _flip_when_collide():
+	if ray_cast_right.is_colliding():
+		direction = 1
+		animated_sprite_2d.flip_h = true
+		killzone.scale.x = -1
+		
+	if ray_cast_left.is_colliding():
+		direction = -1
+		animated_sprite_2d.flip_h = false
+		killzone.scale.x = 1
+		
+
+
+
+## Basic Functions
+
+func _add_movement():
+	velocity.x = direction * current_speed 
 	move_and_slide()
-
 
 # Gravity
 func _add_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
-# Function to make the boss jump
-func jump():
-	if jump_remaining > 0:
-		velocity.y = JUMP_FORCE  # Apply jump force
-		jump_remaining -= 1  # Decrease jump count
-
-
-func _flip_when_collide(direction):
-	if ray_cast_right.is_colliding():
-		direction = -1
-		animated_sprite_2d.flip_h = true
-		killzone.scale.x = -1
-		
-	if ray_cast_left.is_colliding():
-		direction = 1
-		animated_sprite_2d.flip_h = false
-		killzone.scale.x = 1
-		
 
 # When enemy is hit by the player
 func _on_hit(hitbox: Area2D):
@@ -108,7 +149,7 @@ func die():
 		return
 
 
-	speed = 5  # Stop movement
+	current_speed = 5  # Stop movement
 	animated_sprite_2d.play("death")  # Play death animation
 	killzone.queue_free() # turn off enemy killzone
 	
