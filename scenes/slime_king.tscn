@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://mws7ghk0inrn"]
+[gd_scene load_steps=23 format=3 uid="uid://mws7ghk0inrn"]
 
 [ext_resource type="Script" path="res://scripts/slime_king.gd" id="1_7opkb"]
 [ext_resource type="Texture2D" uid="uid://dneoctm714hko" path="res://assets/sprites/slime_purple.png" id="1_v1cul"]
+[ext_resource type="PackedScene" uid="uid://cxyxsw7sip4bc" path="res://scenes/slime_projectiles.tscn" id="2_86u6d"]
 [ext_resource type="PackedScene" uid="uid://ce6flqj0ddmjy" path="res://scenes/killzone.tscn" id="2_wfj70"]
 [ext_resource type="AudioStream" uid="uid://hmxsg8pqldpi" path="res://assets/sounds/hurt.wav" id="4_oo0na"]
 
@@ -119,6 +120,7 @@ size = Vector2(13.5274, 12.7083)
 scale = Vector2(-5.84, 4.8)
 collision_layer = 2
 script = ExtResource("1_7opkb")
+bullet_scene = ExtResource("2_86u6d")
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_mask = 2
@@ -163,3 +165,6 @@ target_position = Vector2(-7.19178, 0.0416665)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.256849, 5.52083)
 shape = SubResource("RectangleShape2D_x86un")
+
+[node name="Mouth" type="Marker2D" parent="."]
+position = Vector2(0.856164, 6.875)

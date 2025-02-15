@@ -25,6 +25,14 @@ var direction = -1
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
 
 
+@export var bullet_scene: PackedScene  # Assign `bullet.tscn` in the Inspector
+@onready var mouth_position = $Mouth  # A Marker2D where bullets spawn
+
+var shot_angles = [-10, -5, 0, 5, 10]  # Angles for each bullet
+var shot_speeds = [250, 300, 350, 400, 450]  # Different speeds
+var shot_index = 0  # Tracks which bullet we're firing
+
+
 
 # assign signal to detect if enemy is being hit (by using the built in area_entered)
 func _ready():
@@ -73,9 +81,29 @@ func _start_jumping_attack():
 			current_state = BossState.SHOOTING
 
 func _start_shooting():
-	
-	await get_tree().create_timer(1.2).timeout # wait
+	await get_tree().create_timer(0.2).timeout # wait
+	current_speed = 0
 	current_state = BossState.IDLE
+	shot_index = 0
+	fire_next_bullet()
+
+
+func fire_next_bullet():
+	if shot_index >= 5:
+		return  # Stop after 5 shots
+
+	var bullet = bullet_scene.instantiate()
+	bullet.global_position = mouth_position.global_position
+
+	var angle = deg_to_rad(shot_angles[shot_index])  # Convert to radians
+	bullet.direction = Vector2(cos(angle), sin(angle))
+	bullet.speed = shot_speeds[shot_index]
+
+	get_tree().current_scene.add_child(bullet)
+
+	shot_index += 1
+	await get_tree().create_timer(0.3).timeout  # Delay between shots
+	fire_next_bullet()  # Fire next bullet recursively
 
 
 
