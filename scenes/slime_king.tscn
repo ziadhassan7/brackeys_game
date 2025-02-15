@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://mws7ghk0inrn"]
+[gd_scene load_steps=22 format=3 uid="uid://mws7ghk0inrn"]
 
 [ext_resource type="Script" path="res://scripts/slime_king.gd" id="1_7opkb"]
 [ext_resource type="Texture2D" uid="uid://dneoctm714hko" path="res://assets/sprites/slime_purple.png" id="1_v1cul"]
@@ -112,16 +112,22 @@ size = Vector2(9.41781, 12.0833)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6jrs"]
 size = Vector2(13.5274, 4.08333)
 
-[node name="SlimeKing" type="Area2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x86un"]
+size = Vector2(13.5274, 12.7083)
+
+[node name="SlimeKing" type="CharacterBody2D"]
 scale = Vector2(-5.84, 4.8)
-collision_mask = 2
+collision_layer = 2
 script = ExtResource("1_7opkb")
 
-[node name="SlimeKingLeg" type="CollisionShape2D" parent="."]
+[node name="HitBox" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="SlimeKingLeg" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-0.0256848, 9.32292)
 shape = SubResource("RectangleShape2D_onp76")
 
-[node name="SlimeKingHead" type="CollisionShape2D" parent="."]
+[node name="SlimeKingHead" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-1.0274, 3.54167)
 shape = SubResource("RectangleShape2D_kfvwr")
 
@@ -153,3 +159,7 @@ target_position = Vector2(7.02055, -0.166667)
 [node name="RayCastLeft" type="RayCast2D" parent="."]
 position = Vector2(0, 6)
 target_position = Vector2(-7.19178, 0.0416665)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.256849, 5.52083)
+shape = SubResource("RectangleShape2D_x86un")
