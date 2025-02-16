@@ -80,30 +80,26 @@ func _start_jumping_attack():
 			current_speed = SPEED
 			current_state = BossState.SHOOTING
 
+
 func _start_shooting():
-	await get_tree().create_timer(0.2).timeout # wait
-	current_speed = 0
-	current_state = BossState.IDLE
-	shot_index = 0
-	fire_next_bullet()
+	current_speed = 0  # Stop movement when shooting
 
+	for i in range(5):  # Loop to fire 5 bullets sequentially
+		fire_next_bullet(i)
+		# await get_tree().create_timer(1).timeout  # Wait for 1 second between shots
 
-func fire_next_bullet():
-	if shot_index >= 5:
-		return  # Stop after 5 shots
+	current_state = BossState.IDLE  # Return to idle after shooting
+	shot_index = 0  # Reset the shot index for the next attack
 
+func fire_next_bullet(index):
 	var bullet = bullet_scene.instantiate()
 	bullet.global_position = mouth_position.global_position
 
-	var angle = deg_to_rad(shot_angles[shot_index])  # Convert to radians
+	var angle = deg_to_rad(shot_angles[index])  # Convert angle to radians
 	bullet.direction = Vector2(cos(angle), sin(angle))
-	bullet.speed = shot_speeds[shot_index]
+	bullet.speed = shot_speeds[index]
 
 	get_tree().current_scene.add_child(bullet)
-
-	shot_index += 1
-	await get_tree().create_timer(0.3).timeout  # Delay between shots
-	fire_next_bullet()  # Fire next bullet recursively
 
 
 
