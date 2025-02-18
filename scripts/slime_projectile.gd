@@ -19,7 +19,7 @@ func _process(delta):
 	velocity += Vector2(0, GRAVITY) * delta  # Apply gravity
 	position += (direction * shooting_speed + velocity) * delta  # Apply movement
 
+
 func _on_area_entered(body: Area2D) -> void:
-	print(body)
 	if body.is_in_group("player"):
 		queue_free()

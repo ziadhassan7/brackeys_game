@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxyxsw7sip4bc"]
+[gd_scene load_steps=8 format=3 uid="uid://cxyxsw7sip4bc"]
 
 [ext_resource type="Texture2D" uid="uid://crb66ft8f2b6l" path="res://assets/sprites/slime_boss_sprites.png" id="1_ajmnt"]
 [ext_resource type="Script" path="res://scripts/slime_projectile.gd" id="1_urs75"]
@@ -22,6 +22,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_jjhhu"]
 radius = 13.0384
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_d7prs"]
+radius = 17.0294
+
 [node name="SlimeProjectile" type="Area2D"]
 collision_mask = 2
 script = ExtResource("1_urs75")
@@ -32,10 +35,14 @@ sprite_frames = SubResource("SpriteFrames_suvmv")
 autoplay = "default"
 frame_progress = 1.0
 
-[node name="Killzone" parent="." instance=ExtResource("2_7aijb")]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, -3)
 shape = SubResource("CircleShape2D_jjhhu")
+
+[node name="Killzone" parent="." instance=ExtResource("2_7aijb")]
+
+[node name="KillzoneShape" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(2, -2)
+shape = SubResource("CircleShape2D_d7prs")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
