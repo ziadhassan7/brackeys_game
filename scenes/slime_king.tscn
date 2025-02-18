@@ -168,3 +168,7 @@ shape = SubResource("RectangleShape2D_x86un")
 
 [node name="Mouth" type="Marker2D" parent="."]
 position = Vector2(0.856164, 6.875)
+
+[node name="EyeRayCast" type="RayCast2D" parent="."]
+position = Vector2(-1.0274, 4.16667)
+target_position = Vector2(142.979, 0.208333)

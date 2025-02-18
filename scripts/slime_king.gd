@@ -23,14 +23,16 @@ var direction = -1
 @onready var death_sound: AudioStreamPlayer2D = $HurtSound
 @onready var ray_cast_right: RayCast2D = $RayCastRight
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
+@onready var eye_ray_cast: RayCast2D = $EyeRayCast
 
 
 @export var bullet_scene: PackedScene  # Assign `bullet.tscn` in the Inspector
 @onready var mouth_position = $Mouth  # A Marker2D where bullets spawn
 
-var shot_angles = [-10, -5, 0, 5, 10]  # Angles for each bullet
-var shot_speeds = [250, 300, 350, 400, 450]  # Different speeds
+var shot_angles = [-70, -60, -50, -40, -30]  # Angles for each bullet
+var shooting_speed = [650, 700, 750, 800, 850]
 var shot_index = 0  # Tracks which bullet we're firing
+var is_shooting = false
 
 
 
@@ -82,24 +84,29 @@ func _start_jumping_attack():
 
 
 func _start_shooting():
+	if is_shooting: return
+	
+	is_shooting = true
 	current_speed = 0  # Stop movement when shooting
+	
+	_flip_towards_player()
 
 	for i in range(5):  # Loop to fire 5 bullets sequentially
 		fire_next_bullet(i)
-		# await get_tree().create_timer(1).timeout  # Wait for 1 second between shots
+		await get_tree().create_timer(1).timeout  # Wait for 1 second between shots
 
 	current_state = BossState.IDLE  # Return to idle after shooting
 	shot_index = 0  # Reset the shot index for the next attack
+	is_shooting = false
 
 func fire_next_bullet(index):
 	var bullet = bullet_scene.instantiate()
 	bullet.global_position = mouth_position.global_position
+	get_tree().current_scene.add_child(bullet)  # Add bullet first!
 
-	var angle = deg_to_rad(shot_angles[index])  # Convert angle to radians
-	bullet.direction = Vector2(cos(angle), sin(angle))
-	bullet.speed = shot_speeds[index]
-
-	get_tree().current_scene.add_child(bullet)
+	var angle = deg_to_rad(shot_angles[index])
+	var speed = shooting_speed[index]
+	bullet.launch(speed, angle, direction)  # Call launch after adding bullet
 
 
 
@@ -123,8 +130,19 @@ func _flip_when_collide():
 		direction = -1
 		animated_sprite_2d.flip_h = false
 		killzone.scale.x = 1
-		
 
+func _flip_towards_player():
+	var player = get_tree().get_nodes_in_group("player")[0]  # Get player reference
+	if not eye_ray_cast.is_colliding() or eye_ray_cast.get_collider() != player:
+		# Determine if the player is to the right or left
+		if player.global_position.x > global_position.x:
+			direction = 1
+			animated_sprite_2d.flip_h = true
+			killzone.scale.x = 1
+		else:
+			direction = -1
+			animated_sprite_2d.flip_h = false
+			killzone.scale.x = -1
 
 
 ## Basic Functions

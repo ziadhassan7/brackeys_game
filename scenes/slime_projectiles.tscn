@@ -1,12 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cxyxsw7sip4bc"]
+[gd_scene load_steps=7 format=3 uid="uid://cxyxsw7sip4bc"]
 
 [ext_resource type="Texture2D" uid="uid://crb66ft8f2b6l" path="res://assets/sprites/slime_boss_sprites.png" id="1_ajmnt"]
 [ext_resource type="Script" path="res://scripts/slime_projectile.gd" id="1_urs75"]
 [ext_resource type="PackedScene" uid="uid://ce6flqj0ddmjy" path="res://scenes/killzone.tscn" id="2_7aijb"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_npt02"]
-atlas = ExtResource("1_ajmnt")
-region = Rect2(0, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ghbi2"]
 atlas = ExtResource("1_ajmnt")
@@ -16,14 +12,11 @@ region = Rect2(64, 320, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_npt02")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_ghbi2")
 }],
 "loop": false,
 "name": &"default",
-"speed": 12.0
+"speed": 8.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jjhhu"]
@@ -37,7 +30,6 @@ script = ExtResource("1_urs75")
 position = Vector2(1, -9)
 sprite_frames = SubResource("SpriteFrames_suvmv")
 autoplay = "default"
-frame = 1
 frame_progress = 1.0
 
 [node name="Killzone" parent="." instance=ExtResource("2_7aijb")]
