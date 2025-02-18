@@ -235,6 +235,8 @@ z_index = 5
 position = Vector2(0, -10)
 zoom = Vector2(4, 4)
 limit_bottom = 64
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(2, 0)

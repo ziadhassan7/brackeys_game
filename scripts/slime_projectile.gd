@@ -20,6 +20,6 @@ func _process(delta):
 	position += (direction * shooting_speed + velocity) * delta  # Apply movement
 
 
-func _on_area_entered(body: Area2D) -> void:
-	if body.is_in_group("player"):
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("player"):
 		queue_free()
