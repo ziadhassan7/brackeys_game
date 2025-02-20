@@ -190,7 +190,8 @@ func die():
 	if is_dead:
 		return
 
-
+	is_dead = true
+	
 	current_speed = 5  # Stop movement
 	animated_sprite_2d.play("death")  # Play death animation
 	killzone.queue_free() # turn off enemy killzone
@@ -198,4 +199,3 @@ func die():
 	await animated_sprite_2d.animation_finished
 	queue_free()  # Remove enemy after animation 
 	
-	is_dead = true

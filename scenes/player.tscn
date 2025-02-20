@@ -107,12 +107,12 @@ shape = SubResource("CircleShape2D_f2p7n")
 
 [node name="AttackArea_Right" parent="." instance=ExtResource("3_qns1o")]
 position = Vector2(9, -11)
-scale = Vector2(0.396971, 0.396971)
+scale = Vector2(0.612526, 0.612526)
 
 [node name="AttackArea_Left" parent="." instance=ExtResource("3_qns1o")]
 position = Vector2(-9, -11)
 rotation = 0.66615
-scale = Vector2(-0.407106, 0.407106)
+scale = Vector2(-0.633975, 0.633975)
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_u1m8s")

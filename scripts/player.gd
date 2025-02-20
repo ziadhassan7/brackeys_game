@@ -141,8 +141,8 @@ func _attack(direction) -> void:
 			
 # Death
 func death() -> void:
-	if is_dashing: # desable taking damage if we are dashing
-		return 
+	# if is_dashing: # desable taking damage if we are dashing
+	#	return 
 
 
 	# Slow motion effect & remove ground from the player
