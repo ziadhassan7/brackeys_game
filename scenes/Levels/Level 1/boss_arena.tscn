@@ -183,4 +183,4 @@ color = Color(0.854902, 0.662745, 0.921569, 1)
 
 [node name="SlimeKing" parent="." instance=ExtResource("5_qhm5r")]
 position = Vector2(31, -43)
-scale = Vector2(-3.74734, 3.08)
+scale = Vector2(-4.53262, 3.72544)
