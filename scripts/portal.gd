@@ -15,7 +15,19 @@ func _ready():
 func _on_body_entered(body: Node2D) -> void:
 	SceneManager.change_scene_to(boss_arena_scene)
 	GameManager.hide_score_label()
-	body.start_portal_animation()
+	start_portal_animation(body)
+
+func start_portal_animation(body: Node2D):
+	body.can_move = false # access its "can_move" property
+	var sprite = body.sprite # access its "sprite"
+	
+	var tween = create_tween()
+	
+	# Shrink the player sprite
+	tween.tween_property(sprite, "scale", Vector2(0.5, 0.5), 1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	
+	# Fade out the player sprite
+	tween.tween_property(sprite, "modulate:a", 0.0, 1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
 func _open_portal():

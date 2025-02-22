@@ -108,19 +108,7 @@ func _start_dash() -> void:
 	# Start a timer and then disable dash after dash_duration_timer seconds.
 	await get_tree().create_timer(dash_duration_timer).timeout 
 	is_dashing = false
-	
 
-
-func start_portal_animation():
-	can_move = false
-	
-	var tween = create_tween()
-	
-	# Shrink the player sprite
-	tween.tween_property(sprite, "scale", Vector2(0.4, 0.4), 1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	
-	# Fade out the player sprite
-	tween.tween_property(sprite, "modulate:a", 0.0, 1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
 # Move Character

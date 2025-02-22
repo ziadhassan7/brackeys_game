@@ -1,0 +1,57 @@
+[gd_scene load_steps=12 format=3 uid="uid://dcipwoh142f2r"]
+
+[ext_resource type="Script" path="res://scripts/win_screen.gd" id="1_nln5x"]
+[ext_resource type="PackedScene" uid="uid://bheq7bv3477g6" path="res://scenes/text_bold.tscn" id="1_pgr45"]
+[ext_resource type="Texture2D" uid="uid://diivim4yqrwoj" path="res://assets/sprites/UIButtons/72ppp/Buttons-179.png" id="2_051j8"]
+[ext_resource type="FontFile" uid="uid://dx08ggoe4jc2q" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_yeahp"]
+[ext_resource type="Texture2D" uid="uid://cw6kmb7k3hmaq" path="res://assets/sprites/UIButtons/72ppp/Buttons-182.png" id="4_a6clk"]
+[ext_resource type="Texture2D" uid="uid://b6rel31yqlg4k" path="res://assets/sprites/UIButtons/72ppp/Buttons-184.png" id="4_h4tu7"]
+[ext_resource type="Texture2D" uid="uid://brlak0ek48y8h" path="res://assets/sprites/UIButtons/72ppp/Buttons-185.png" id="4_vshno"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oqqin"]
+texture = ExtResource("2_051j8")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dljre"]
+texture = ExtResource("4_vshno")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ho5gf"]
+texture = ExtResource("4_a6clk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fuhes"]
+texture = ExtResource("4_h4tu7")
+
+[node name="Win Screen" type="CanvasLayer"]
+script = ExtResource("1_nln5x")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 232.0
+offset_top = 112.0
+offset_right = 1179.0
+offset_bottom = 562.0
+scale = Vector2(0.757655, 0.863725)
+theme_override_styles/panel = SubResource("StyleBoxTexture_oqqin")
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 353.0
+offset_top = 265.0
+offset_right = 453.0
+offset_bottom = 296.0
+scale = Vector2(2.56, 2.56)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.956863, 0.94902, 0.898039, 1)
+theme_override_fonts/font = ExtResource("2_yeahp")
+theme_override_styles/hover = SubResource("StyleBoxTexture_dljre")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ho5gf")
+theme_override_styles/normal = SubResource("StyleBoxTexture_fuhes")
+text = "Replay"
+
+[node name="Bold Text" parent="Panel" instance=ExtResource("1_pgr45")]
+layout_mode = 0
+offset_left = 183.0
+offset_top = 71.0
+offset_right = 787.0
+offset_bottom = 142.0
+theme_override_colors/font_color = Color(0.215902, 0.215902, 0.215902, 1)
+theme_override_font_sizes/font_size = 70
+text = "YOU WON !!"

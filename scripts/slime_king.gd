@@ -204,5 +204,7 @@ func die():
 	killzone.queue_free() # turn off enemy killzone
 	
 	await animated_sprite_2d.animation_finished
-	queue_free()  # Remove enemy after animation 
 	
+	WinScreen.open()
+	
+	queue_free()  # Remove enemy after animation 
