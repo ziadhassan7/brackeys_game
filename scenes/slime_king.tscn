@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://mws7ghk0inrn"]
+[gd_scene load_steps=24 format=3 uid="uid://mws7ghk0inrn"]
 
 [ext_resource type="Script" path="res://scripts/slime_king.gd" id="1_7opkb"]
 [ext_resource type="PackedScene" uid="uid://cxyxsw7sip4bc" path="res://scenes/slime_projectiles.tscn" id="2_86u6d"]
@@ -116,6 +116,10 @@ size = Vector2(14.2123, 4.08333)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x86un"]
 size = Vector2(14.2123, 9.58333)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hya1l"]
+radius = 5.625
+height = 19.5203
+
 [node name="SlimeKing" type="CharacterBody2D"]
 scale = Vector2(-5.84, 4.8)
 collision_layer = 2
@@ -173,3 +177,10 @@ position = Vector2(0.856164, 6.875)
 [node name="EyeRayCast" type="RayCast2D" parent="."]
 position = Vector2(-1.0274, 4.16667)
 target_position = Vector2(142.979, 0.208333)
+
+[node name="BiteArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BiteArea"]
+position = Vector2(-0.513699, 7.5)
+rotation = -1.5757
+shape = SubResource("CapsuleShape2D_hya1l")

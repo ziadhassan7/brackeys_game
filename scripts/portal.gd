@@ -15,6 +15,7 @@ func _ready():
 func _on_body_entered(body: Node2D) -> void:
 	SceneManager.change_scene_to(boss_arena_scene)
 	GameManager.hide_score_label()
+	body.start_portal_animation()
 
 
 func _open_portal():

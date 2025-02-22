@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 enum BossState{
-	IDLE, JUMPING, SHOOTING
+	IDLE, JUMPING, SHOOTING, EAT
 }
 
 const SPEED = 60
@@ -71,6 +71,13 @@ func _initiate_boss_attack_pattern():
 		
 		BossState.SHOOTING:
 			_start_shooting()
+		
+		BossState.EAT:
+			_eat()
+
+
+func _eat():
+	pass
 
 
 func _start_jumping_attack():

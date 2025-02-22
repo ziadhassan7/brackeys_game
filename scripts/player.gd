@@ -5,7 +5,7 @@ const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
 const ATTACK_TYPE = "dash" # There is also "normal"
 
-@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_area_right: Area2D = $AttackArea_Right
 @onready var attack_area_left: Area2D = $AttackArea_Left
 @onready var death_sound: AudioStreamPlayer2D = $DeathSound
@@ -26,6 +26,8 @@ var is_jumping: bool = false  # Check if currently jumping
 var is_dashing := false
 var can_dashing := false
 
+var can_move = true
+
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -35,12 +37,6 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	_add_gravity(delta)
 
-	# Handle Jump
-	_handle_jump(delta)
-
-	# Handle Dash
-	_handle_dash(direction)
-
 	# Flip
 	_flip_character(direction)
 
@@ -49,9 +45,14 @@ func _physics_process(delta: float) -> void:
 
 	# Attack
 	_attack(direction)
-
-	#
-	move_and_slide()
+	
+	if can_move:
+		# Handle Dash
+		_handle_dash(direction)
+		# Handle Jump
+		_handle_jump(delta)
+		#
+		move_and_slide()
 
 
 	
@@ -94,12 +95,12 @@ func _handle_jump(delta: float) -> void:
 func _handle_dash(direction) -> void:
 	if Input.is_action_just_pressed("dash") and not is_dashing:
 		is_dashing = true
-		animated_sprite_2d.play("dash")
+		sprite.play("dash")
 		_start_dash()
 
 func _start_dash() -> void:
 	# Set dash velocity once when dash is triggered:
-	if animated_sprite_2d.flip_h:
+	if sprite.flip_h:
 		velocity.x = -(SPEED * dash_speed_multiplier)
 	else:
 		velocity.x = (SPEED * dash_speed_multiplier)
@@ -109,6 +110,17 @@ func _start_dash() -> void:
 	is_dashing = false
 	
 
+
+func start_portal_animation():
+	can_move = false
+	
+	var tween = create_tween()
+	
+	# Shrink the player sprite
+	tween.tween_property(sprite, "scale", Vector2(0.4, 0.4), 1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	
+	# Fade out the player sprite
+	tween.tween_property(sprite, "modulate:a", 0.0, 1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
 # Move Character
@@ -123,17 +135,17 @@ func _move_character(direction) -> void:
 # Flip Character
 func _flip_character(direction) -> void:
 	if direction > 0:
-		animated_sprite_2d.flip_h = false
+		sprite.flip_h = false
 		
 	if direction < 0:
-		animated_sprite_2d.flip_h = true
+		sprite.flip_h = true
 
 
 # Attack
 func _attack(direction) -> void:	
 	
 	if Input.is_action_just_pressed("attack"):
-		if animated_sprite_2d.flip_h: # Flipped -> walking left
+		if sprite.flip_h: # Flipped -> walking left
 			attack_area_left.start_attack(ATTACK_TYPE)
 
 		else: # Not Flipped -> walking right
