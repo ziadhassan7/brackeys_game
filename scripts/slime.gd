@@ -1,6 +1,6 @@
 extends Node2D
 
-const MAX_HEALTH = 100
+const MAX_HEALTH = 21
 
 var speed = 60
 var direction = 1 # 1: right , -1: left

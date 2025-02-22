@@ -6,7 +6,7 @@ extends Area2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
 
 var is_attacking = false
-var damage = 50
+var damage = 7
 
 
 # Disable this node at the start
@@ -40,12 +40,10 @@ func start_attack(attack_type: String) -> void:
 		
 
 func play_small_attack():
-	damage = 50
 	slash_animation.play("small_slash")  # Play attack animation
 	hit_animation.play("hit_1") 
 	
 	
 func play_dash_attack():
-	damage = 50
 	slash_animation.play("long_slash")  # Play attack animation
 	hit_animation.play("hit_2") 

@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://jlfjbgrck1m7"]
+[gd_scene load_steps=7 format=3 uid="uid://jlfjbgrck1m7"]
 
 [ext_resource type="Script" path="res://scripts/user_interface.gd" id="1_i4pv2"]
 [ext_resource type="PackedScene" uid="uid://bheq7bv3477g6" path="res://scenes/text_bold.tscn" id="1_vrwhb"]
 [ext_resource type="Texture2D" uid="uid://btmenvi630cw4" path="res://assets/sprites/coin.png" id="2_apd0s"]
 [ext_resource type="Texture2D" uid="uid://bojjw5kne7onl" path="res://assets/sprites/heart.png" id="2_y2nnp"]
+[ext_resource type="Texture2D" uid="uid://dkdxxnmpuwfrt" path="res://assets/sprites/pixel-health-bar/background_border.png" id="5_8djrc"]
+[ext_resource type="Texture2D" uid="uid://ddyohjx4i2lhd" path="res://assets/sprites/pixel-health-bar/health.png" id="6_l4niv"]
 
 [node name="User Interface" type="Control"]
 layout_mode = 3
@@ -56,3 +58,13 @@ offset_right = 162.0
 offset_bottom = 42.0
 theme_override_font_sizes/font_size = 40
 text = "0"
+
+[node name="Boss Progress Bar" type="TextureProgressBar" parent="CanvasLayer"]
+offset_left = 192.0
+offset_top = 605.0
+offset_right = 320.0
+offset_bottom = 645.0
+scale = Vector2(6.06965, 1.02204)
+value = 50.0
+texture_under = ExtResource("5_8djrc")
+texture_progress = ExtResource("6_l4niv")

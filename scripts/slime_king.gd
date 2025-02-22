@@ -5,10 +5,11 @@ enum BossState{
 }
 
 const SPEED = 60
-const MAX_HEALTH = 500
 const JUMP_FORCE = -300  # Negative because Y-axis is inverted in Godot
 const GRAVITY = 500      # Simulated gravity
 const JUMP_COUNT = 3     # Number of jumps before stopping
+
+var MAX_HEALTH = 100
 
 var current_state = BossState.IDLE
 var current_speed = 60
@@ -174,6 +175,7 @@ func take_damage(damage: int):
 		return
 
 	health -= damage
+	GameManager.change_boss_health(health)
 
 	# health reached 0 => DEAD
 	if health <= 0:
