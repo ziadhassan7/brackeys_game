@@ -4,7 +4,7 @@ extends Area2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var portal_sound: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
-var boss_arena_scene: PackedScene = preload("res://scenes/Levels/Level 1/boss_arena.tscn")
+var boss_arena_scene: PackedScene = preload("res://scenes/Levels/boss_arena.tscn")
 
 
 func _ready():

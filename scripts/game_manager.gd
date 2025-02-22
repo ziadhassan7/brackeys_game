@@ -18,6 +18,20 @@ func hide_score_label():
 
 ################################################################################
 
+var health = 3
+signal health_changed(value)
+
+func take_damage():
+	health -= 1
+	emit_signal("health_changed", health)
+	
+func restore_health():
+	health = 3
+	emit_signal("health_changed", health)
+	
+
+################################################################################
+
 signal portal_opened()
 
 func open_portal_to_boss_arena():
