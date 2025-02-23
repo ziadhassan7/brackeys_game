@@ -73,7 +73,8 @@ func take_damage(damage: int):
 func die():
 	if is_dead:
 		return
-		
+
+	is_dead = true
 
 	speed = 5  # Stop movement
 	animated_sprite_2d.play("death")  # Play death animation
@@ -83,4 +84,3 @@ func die():
 	queue_free()  # Remove enemy after animation 
 	
 	GameManager.open_portal_to_boss_arena()
-	is_dead = true
