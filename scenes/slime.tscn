@@ -1,12 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://cvt5ddabdsa3t"]
+[gd_scene load_steps=18 format=3 uid="uid://cvt5ddabdsa3t"]
 
 [ext_resource type="Texture2D" uid="uid://dr1tjgacribkv" path="res://assets/sprites/slime_green.png" id="1_3q2pl"]
 [ext_resource type="Script" path="res://scripts/slime.gd" id="1_1374c"]
-[ext_resource type="PackedScene" uid="uid://ce6flqj0ddmjy" path="res://scenes/killzone.tscn" id="2_ffqek"]
+[ext_resource type="PackedScene" uid="uid://cbet2xrmnrp65" path="res://scenes/hit_box.tscn" id="4_6rfq0"]
 [ext_resource type="AudioStream" uid="uid://hmxsg8pqldpi" path="res://assets/sounds/hurt.wav" id="4_8umyp"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vnh34"]
-size = Vector2(14, 12)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3l8ek"]
 atlas = ExtResource("1_3q2pl")
@@ -104,26 +101,16 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_02v3r"]
-size = Vector2(8.5, 12)
+size = Vector2(11, 12)
 
 [node name="Slime" type="Area2D"]
 collision_mask = 2
 script = ExtResource("1_1374c")
 
-[node name="SlimeBody" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6)
-shape = SubResource("RectangleShape2D_vnh34")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jiiya")
 animation = &"hurt"
 autoplay = "idle"
-
-[node name="Killzone" parent="." instance=ExtResource("2_ffqek")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(-0.25, 6)
-shape = SubResource("RectangleShape2D_02v3r")
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(0, 6)
@@ -137,3 +124,10 @@ target_position = Vector2(-8, 0)
 stream = ExtResource("4_8umyp")
 bus = &"SFX"
 area_mask = 2
+
+[node name="HitBox" parent="." node_paths=PackedStringArray("assigned_character") instance=ExtResource("4_6rfq0")]
+assigned_character = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-0.5, 6)
+shape = SubResource("RectangleShape2D_02v3r")
