@@ -31,6 +31,7 @@ var direction = -1
 
 var shot_angles = [-70, -60, -50, -40, -30]  # Angles for each bullet
 var shooting_speed = [650, 700, 750, 800, 850]
+var projectile_weight = [2800, 2500, 2400, 2200, 2000]
 var shot_index = 0  # Tracks which bullet we're firing
 var is_shooting = false
 
@@ -114,7 +115,8 @@ func fire_next_bullet(index):
 
 	var angle = deg_to_rad(shot_angles[index])
 	var speed = shooting_speed[index]
-	bullet.launch(speed, angle, direction)  # Call launch after adding bullet
+	var weight = projectile_weight[index]
+	bullet.launch(speed, angle, direction, weight)  # Call launch after adding bullet
 
 
 
