@@ -35,6 +35,7 @@ func restore_health():
 var current_boss_max_health
 signal boss_health_shown(value)
 signal boss_health_changed(value)
+signal boss_health_hidden()
 
 func show_boss_health(full_boss_health):
 	current_boss_max_health = full_boss_health
@@ -42,6 +43,9 @@ func show_boss_health(full_boss_health):
 
 func change_boss_health(health):
 	emit_signal("boss_health_changed", health)
+
+func hide_boss_health():
+	emit_signal("boss_health_hidden")
 
 ################################################################################
 

@@ -15,6 +15,7 @@ func _ready():
 	GameManager.connect("health_changed", Callable(self, "_on_health_changed"))
 	GameManager.connect("boss_health_changed", Callable(self, "_on_boss_health_changed"))
 	GameManager.connect("boss_health_shown", Callable(self, "_on_boss_health_shown"))
+	GameManager.connect("boss_health_hidden", Callable(self, "_on_boss_health_hidden"))
 
 	boss_progress_bar.visible = false
 
@@ -39,6 +40,9 @@ func _on_boss_health_shown(max_health):
 
 func _on_boss_health_changed(health):	
 	boss_progress_bar.value = health
+
+func _on_boss_health_hidden():	
+	boss_progress_bar.visible = false
 
 
 # Score

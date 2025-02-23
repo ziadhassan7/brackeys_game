@@ -19,3 +19,4 @@ func close():
 func _on_restart_pressed():
 	close()
 	get_tree().change_scene_to_file("res://scenes/Levels/level_1.tscn")
+	GameManager.hide_boss_health()
