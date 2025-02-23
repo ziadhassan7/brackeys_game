@@ -4,12 +4,11 @@ enum BossState{
 	IDLE, JUMPING, SHOOTING, EAT
 }
 
+const MAX_HEALTH = 500
 const SPEED = 60
 const JUMP_FORCE = -300  # Negative because Y-axis is inverted in Godot
 const GRAVITY = 500      # Simulated gravity
 const JUMP_COUNT = 3     # Number of jumps before stopping
-
-var MAX_HEALTH = 100
 
 var current_state = BossState.IDLE
 var current_speed = 60
@@ -41,7 +40,8 @@ var is_shooting = false
 func _ready():
 	hit_box.connect("area_entered", Callable(self, "_on_hit"))
 	jump_remaining = JUMP_COUNT
-
+	
+	GameManager.show_boss_health(MAX_HEALTH)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

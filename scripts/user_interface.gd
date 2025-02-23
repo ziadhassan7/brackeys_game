@@ -35,6 +35,7 @@ func _on_health_changed(health):
 func _on_boss_health_shown(max_health):	
 	boss_progress_bar.visible = true
 	boss_progress_bar.max_value = max_health
+	boss_progress_bar.value = max_health
 
 func _on_boss_health_changed(health):	
 	boss_progress_bar.value = health
