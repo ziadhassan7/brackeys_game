@@ -61,9 +61,9 @@ text = "0"
 
 [node name="Boss Progress Bar" type="TextureProgressBar" parent="CanvasLayer"]
 offset_left = 192.0
-offset_top = 605.0
+offset_top = 669.0
 offset_right = 320.0
-offset_bottom = 645.0
+offset_bottom = 688.0
 scale = Vector2(6.06965, 1.02204)
 value = 50.0
 texture_under = ExtResource("5_8djrc")
