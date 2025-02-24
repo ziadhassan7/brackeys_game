@@ -11,7 +11,7 @@ var is_dead = false
 @onready var ray_cast_right: RayCast2D = $RayCastRight
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@onready var death_sound: AudioStreamPlayer2D = $HurtSound
+@onready var hurt_sound: AudioStreamPlayer2D = $HurtSound
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -45,7 +45,7 @@ func take_damage(damage: int):
 		die()
 	else:
 		animated_sprite_2d.play("hurt") 
-		death_sound.set_deferred("playing", true)
+		hurt_sound.set_deferred("playing", true)
 		# Disable the hitbox temporarily
 		hit_box.set_deferred("monitoring", false)
 		hit_box.set_deferred("visible", false)  

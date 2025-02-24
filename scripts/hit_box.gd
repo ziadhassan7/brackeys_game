@@ -21,4 +21,4 @@ func _on_body_entered(body: Node2D) -> void:
 		apply_damage(body)
 
 func apply_damage(body: Node2D):
-	body.death()
+	body.damage()

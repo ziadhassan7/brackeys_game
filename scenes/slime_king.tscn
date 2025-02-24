@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://mws7ghk0inrn"]
+[gd_scene load_steps=26 format=3 uid="uid://mws7ghk0inrn"]
 
 [ext_resource type="Script" path="res://scripts/slime_king.gd" id="1_7opkb"]
 [ext_resource type="PackedScene" uid="uid://cxyxsw7sip4bc" path="res://scenes/slime_projectiles.tscn" id="2_86u6d"]
@@ -6,11 +6,24 @@
 [ext_resource type="Texture2D" uid="uid://crb66ft8f2b6l" path="res://assets/sprites/slime_boss_sprites.png" id="3_ymwid"]
 [ext_resource type="AudioStream" uid="uid://hmxsg8pqldpi" path="res://assets/sounds/hurt.wav" id="4_oo0na"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x86un"]
+size = Vector2(14.2123, 9.58333)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onp76"]
-size = Vector2(14.0411, 3.85417)
+size = Vector2(12.8425, 3.85417)
+
+[sub_resource type="Gradient" id="Gradient_uied6"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_i4u3x"]
+gradient = SubResource("Gradient_uied6")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kfvwr"]
 size = Vector2(11.4726, 4.79167)
+
+[sub_resource type="Gradient" id="Gradient_5xmsy"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ehgt3"]
+gradient = SubResource("Gradient_5xmsy")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6sfly"]
 atlas = ExtResource("3_ymwid")
@@ -107,9 +120,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x86un"]
-size = Vector2(14.2123, 9.58333)
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hya1l"]
 radius = 5.625
 height = 19.5203
@@ -120,16 +130,32 @@ collision_layer = 2
 script = ExtResource("1_7opkb")
 bullet_scene = ExtResource("2_86u6d")
 
+[node name="CollisionShapeForGround" type="CollisionShape2D" parent="."]
+position = Vector2(-0.599314, 6.875)
+shape = SubResource("RectangleShape2D_x86un")
+
 [node name="HitBox" parent="." node_paths=PackedStringArray("assigned_character") instance=ExtResource("3_k1yp5")]
 assigned_character = NodePath("..")
 
 [node name="SlimeKingLeg" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(-0.513699, 9.84375)
+position = Vector2(-1.11301, 9.84375)
 shape = SubResource("RectangleShape2D_onp76")
 
+[node name="SEE" type="Sprite2D" parent="HitBox/SlimeKingLeg"]
+visible = false
+position = Vector2(-0.0857136, -0.95594)
+scale = Vector2(0.202733, -0.0851983)
+texture = SubResource("GradientTexture2D_i4u3x")
+
 [node name="SlimeKingHead" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(-0.428082, 5.3125)
+position = Vector2(-0.941781, 5.3125)
 shape = SubResource("RectangleShape2D_kfvwr")
+
+[node name="SEE" type="Sprite2D" parent="HitBox/SlimeKingHead"]
+visible = false
+position = Vector2(-0.157141, -0.121665)
+scale = Vector2(0.0461055, 4.51091)
+texture = SubResource("GradientTexture1D_ehgt3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-0.856164, 6.45833)
@@ -150,10 +176,6 @@ target_position = Vector2(7.02055, -0.166667)
 [node name="RayCastLeft" type="RayCast2D" parent="."]
 position = Vector2(0, 6)
 target_position = Vector2(-7.19178, 0.0416665)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.599314, 6.875)
-shape = SubResource("RectangleShape2D_x86un")
 
 [node name="Mouth" type="Marker2D" parent="."]
 position = Vector2(0.856164, 6.875)

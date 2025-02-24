@@ -147,11 +147,11 @@ func _flip_towards_player():
 		if player.global_position.x > global_position.x:
 			direction = 1
 			animated_sprite_2d.flip_h = true
-			hit_box.scale.x = 1
+			hit_box.scale.x = -1
 		else:
 			direction = -1
 			animated_sprite_2d.flip_h = false
-			hit_box.scale.x = -1
+			hit_box.scale.x = 1
 
 
 ## Basic Functions

@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
 const ATTACK_TYPE = "dash" # There is also "normal"
@@ -9,6 +8,7 @@ const ATTACK_TYPE = "dash" # There is also "normal"
 @onready var attack_area_right: Area2D = $AttackArea_Right
 @onready var attack_area_left: Area2D = $AttackArea_Left
 @onready var death_sound: AudioStreamPlayer2D = $DeathSound
+@onready var hurt_sound: AudioStreamPlayer2D = $HurtSound
 
 # Jump
 @export var max_jump_velocity: float = -250.0  # Strongest jump
@@ -17,6 +17,7 @@ const ATTACK_TYPE = "dash" # There is also "normal"
 
 var jumps_left_counter: int = max_jumps  # Remaining jumps
 var is_jumping: bool = false  # Check if currently jumping
+var health
 
 
 # Dash
@@ -138,12 +139,55 @@ func _attack(direction) -> void:
 
 		else: # Not Flipped -> walking right
 			attack_area_right.start_attack(ATTACK_TYPE)
-			
-# Death
-func death() -> void:
+
+
+func damage():
 	# if is_dashing: # desable taking damage if we are dashing
 	#	return 
+	
+	# Play Damage animation
+	sprite.play("damage")
+	hurt_sound.set_deferred("playing", true)
+	# Reset to idle after the hurt animation finishes
+	await sprite.animation_finished  
+	sprite.play("idle") 
+	
+	GameManager.take_damage()
+	health = GameManager.health
+	
+	if health == 0: death()
 
+
+# Death
+func death() -> void:
+
+	# Play Death animation
+	sprite.play("death")
+
+	# Slow motion effect & remove ground from the player
+	Engine.time_scale = 0.5
+	
+	# Play Death Sound
+	MusicManager.lower_volum() # lower backgound music to play death sound
+	death_sound.play()
+	await death_sound.finished
+	MusicManager.reset_volum() # reset backgound music
+	
+	# Wait for 0.6 seconds before reloading the scene
+	await get_tree().create_timer(0.6).timeout 
+	
+	# Set time back to normal & reload the scene
+	Engine.time_scale = 1.0 
+	get_tree().reload_current_scene()
+	
+	# Reset score & Health
+	GameManager.reset_score()
+	GameManager.restore_health() # reset health on death
+
+
+
+# Fall Death
+func fall_death() -> void:
 
 	# Slow motion effect & remove ground from the player
 	Engine.time_scale = 0.5
@@ -164,5 +208,6 @@ func death() -> void:
 	Engine.time_scale = 1.0 
 	get_tree().reload_current_scene()
 	
-	# Reset score & Play death sound
+	# Reset score & Health
 	GameManager.reset_score()
+	GameManager.restore_health() # reset health on death

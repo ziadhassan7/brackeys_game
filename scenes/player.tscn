@@ -1,9 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://bardpv0yt81pu"]
+[gd_scene load_steps=23 format=3 uid="uid://bardpv0yt81pu"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_odqre"]
 [ext_resource type="Texture2D" uid="uid://6asyqmamandf" path="res://assets/sprites/knight.png" id="1_tvdi4"]
 [ext_resource type="PackedScene" uid="uid://bt3p7porj834v" path="res://scenes/attack_area.tscn" id="3_qns1o"]
 [ext_resource type="AudioStream" uid="uid://b6pwbl41ldotr" path="res://assets/sounds/game_over.mp3" id="4_u1m8s"]
+[ext_resource type="AudioStream" uid="uid://hmxsg8pqldpi" path="res://assets/sounds/hurt.wav" id="5_dteb8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2msn"]
+atlas = ExtResource("1_tvdi4")
+region = Rect2(64, 192, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4mlu3"]
 atlas = ExtResource("1_tvdi4")
@@ -29,6 +34,22 @@ region = Rect2(192, 160, 32, 32)
 atlas = ExtResource("1_tvdi4")
 region = Rect2(224, 160, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4lim"]
+atlas = ExtResource("1_tvdi4")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_342tm"]
+atlas = ExtResource("1_tvdi4")
+region = Rect2(32, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6d6e"]
+atlas = ExtResource("1_tvdi4")
+region = Rect2(64, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1n3h"]
+atlas = ExtResource("1_tvdi4")
+region = Rect2(96, 224, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_8hkk6"]
 atlas = ExtResource("1_tvdi4")
 region = Rect2(0, 0, 32, 32)
@@ -47,6 +68,14 @@ region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kea0w"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2msn")
+}],
+"loop": false,
+"name": &"damage",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4mlu3")
@@ -69,6 +98,23 @@ animations = [{
 "loop": false,
 "name": &"dash",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4lim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_342tm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6d6e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1n3h")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -98,7 +144,7 @@ script = ExtResource("1_odqre")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_kea0w")
-animation = &"dash"
+animation = &"damage"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -116,6 +162,11 @@ scale = Vector2(-0.633975, 0.633975)
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_u1m8s")
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_dteb8")
+bus = &"SFX"
+area_mask = 2
 
 [node name="DashDurationTimer" type="Timer" parent="."]
 

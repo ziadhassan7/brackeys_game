@@ -21,8 +21,13 @@ func _ready():
 
 
 # Health
-func _on_health_changed(health):	
-	if health == 2:
+func _on_health_changed(health):
+	if health == 3:
+		heart_3.visible = true
+		heart_2.visible = true
+		heart_1.visible = true
+		
+	elif health == 2:
 		heart_3.visible = false
 	elif health == 1:
 		heart_3.visible = false
