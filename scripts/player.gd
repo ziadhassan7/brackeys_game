@@ -160,6 +160,7 @@ func damage():
 
 # Death
 func death() -> void:
+	can_move = false
 
 	# Play Death animation
 	sprite.play("death")
