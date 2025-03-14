@@ -191,7 +191,7 @@ func death() -> void:
 func fall_death() -> void:
 
 	# Slow motion effect & remove ground from the player
-	Engine.time_scale = 0.5
+	Engine.time_scale = 0.8
 	
 	# Disable player collision
 	get_node("CollisionShape2D").queue_free()
