@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://mws7ghk0inrn"]
+[gd_scene load_steps=29 format=3 uid="uid://mws7ghk0inrn"]
 
 [ext_resource type="Script" path="res://scripts/slime_king.gd" id="1_7opkb"]
 [ext_resource type="PackedScene" uid="uid://cxyxsw7sip4bc" path="res://scenes/slime_projectiles.tscn" id="2_86u6d"]
@@ -34,6 +34,18 @@ atlas = ExtResource("3_ymwid")
 region = Rect2(256, 192, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hjhym"]
+atlas = ExtResource("3_ymwid")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_br6xi"]
+atlas = ExtResource("3_ymwid")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lb1nc"]
+atlas = ExtResource("3_ymwid")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vh0n5"]
 atlas = ExtResource("3_ymwid")
 region = Rect2(192, 192, 64, 64)
 
@@ -87,6 +99,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_br6xi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lb1nc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vh0n5")
+}],
+"loop": false,
+"name": &"eat",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_81mwh")
 }, {
 "duration": 1.0,
@@ -121,8 +147,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hya1l"]
-radius = 5.625
-height = 19.5203
+radius = 4.37579
+height = 22.26
 
 [node name="SlimeKing" type="CharacterBody2D"]
 scale = Vector2(-5.84, 4.8)
@@ -161,7 +187,7 @@ texture = SubResource("GradientTexture1D_ehgt3")
 position = Vector2(-0.856164, 6.45833)
 scale = Vector2(0.291667, 0.291667)
 sprite_frames = SubResource("SpriteFrames_2si1g")
-animation = &"hurt"
+animation = &"eat"
 autoplay = "idle"
 
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
@@ -185,8 +211,9 @@ position = Vector2(-1.0274, 4.16667)
 target_position = Vector2(142.979, 0.208333)
 
 [node name="BiteArea" type="Area2D" parent="."]
+collision_mask = 2
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="BiteArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BiteArea"]
 position = Vector2(-0.513699, 7.5)
 rotation = -1.5757
 shape = SubResource("CapsuleShape2D_hya1l")

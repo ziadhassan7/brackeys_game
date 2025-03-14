@@ -17,12 +17,16 @@ var is_dead = false
 var jump_remaining = 0  # Track remaining jumps
 var direction = -1
 
+var timer_when_player_is_close_while_shooting = 0.0
+var is_player_close_while_shooting = false
+
 @onready var hit_box: Area2D = $HitBox
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var death_sound: AudioStreamPlayer2D = $HurtSound
 @onready var ray_cast_right: RayCast2D = $RayCastRight
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
 @onready var eye_ray_cast: RayCast2D = $EyeRayCast
+@onready var eating_area: Area2D = $BiteArea
 
 
 @export var bullet_scene: PackedScene  # Assign `bullet.tscn` in the Inspector
@@ -39,6 +43,9 @@ var is_shooting = false
 # assign signal to detect if enemy is being hit (by using the built in area_entered)
 func _ready():
 	hit_box.connect("area_entered", Callable(self, "_on_hit"))
+	eating_area.connect("body_entered", Callable(self, "_on_eating_area_entered"))
+	eating_area.connect("body_exited", Callable(self, "_on_eating_area_exited"))
+	
 	jump_remaining = JUMP_COUNT
 	
 	GameManager.show_boss_health(MAX_HEALTH)
@@ -56,6 +63,9 @@ func _physics_process(delta: float) -> void:
 	_initiate_boss_attack_pattern()
 
 	_add_movement()
+	
+	if is_player_close_while_shooting:
+		timer_when_player_is_close_while_shooting += delta
 
 
 
@@ -72,13 +82,50 @@ func _initiate_boss_attack_pattern():
 		
 		BossState.SHOOTING:
 			_start_shooting()
+			_start_eating_if_player_is_close_for(1.0)
+			
 		
 		BossState.EAT:
 			_eat()
 
 
 func _eat():
-	pass
+	animated_sprite_2d.play("eat") 
+	
+	# Apply dash speed in the correct direction
+	velocity.x = direction * (current_speed + 150)
+	move_and_slide()  # Ensure movement is applied immediately
+
+	# Wait for a short burst of movement (e.g., 0.1s)
+	await get_tree().create_timer(0.1).timeout
+
+	# Stop movement completely
+	velocity.x = 0
+	move_and_slide()  # Apply the stop
+
+	# Wait for the animation to finish before resetting state
+	await animated_sprite_2d.animation_finished
+
+	# Reset state & normal speed
+	current_state = BossState.JUMPING
+	velocity.x = direction * current_speed  # Restore normal movement speed
+	timer_when_player_is_close_while_shooting = 0
+
+
+
+func _start_eating_if_player_is_close_for(allowed_timer: float):
+	if timer_when_player_is_close_while_shooting > allowed_timer: #This is counted by seconds
+		current_state = BossState.EAT
+
+func _on_eating_area_entered(body: Node2D):
+	if body.is_in_group("player") && is_shooting:
+		is_player_close_while_shooting = true
+
+func _on_eating_area_exited(body: Node2D):
+	if body.is_in_group("player"):
+		timer_when_player_is_close_while_shooting = 0
+		is_player_close_while_shooting = false
+
 
 
 func _start_jumping_attack():
@@ -95,6 +142,7 @@ func _start_shooting():
 	if is_shooting: return
 	
 	is_shooting = true
+	animated_sprite_2d.play("idle")
 	current_speed = 0  # Stop movement when shooting
 	
 	_flip_towards_player()
@@ -124,6 +172,7 @@ func fire_next_bullet(index):
 # Function to make the boss jump
 func jump():
 	if jump_remaining > 0:
+		animated_sprite_2d.play("jump") 
 		current_speed += 150
 		velocity.y = JUMP_FORCE  # Apply jump force
 		jump_remaining -= 1  # Decrease jump count
